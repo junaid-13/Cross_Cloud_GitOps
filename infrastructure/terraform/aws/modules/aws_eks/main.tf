@@ -1,8 +1,3 @@
-#############################################
-# AWS EKS Cluster and Node Group (Minimal)
-#############################################
-
-# --- EKS IAM Role for Control Plane ---
 data "aws_iam_policy_document" "eks_assume_role" {
   statement {
     effect = "Allow"
@@ -19,7 +14,6 @@ resource "aws_iam_role" "eks" {
   assume_role_policy = data.aws_iam_policy_document.eks_assume_role.json
 }
 
-# Attach required EKS cluster policies
 resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   role       = aws_iam_role.eks.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
@@ -30,6 +24,32 @@ resource "aws_iam_role_policy_attachment" "eks_service_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
 }
 
+# --- Cluster Security Group ---
+resource "aws_security_group" "cluster" {
+  name        = "${var.cluster_name}-sg"
+  description = "EKS cluster communication"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description = "Allow node to control plane communication"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.cluster_name}-sg"
+  }
+}
+
 # --- EKS Cluster ---
 resource "aws_eks_cluster" "this" {
   name     = var.cluster_name
@@ -37,7 +57,8 @@ resource "aws_eks_cluster" "this" {
   role_arn = aws_iam_role.eks.arn
 
   vpc_config {
-    subnet_ids = concat(var.private_subnet_ids, var.public_subnet_ids)
+    subnet_ids         = concat(var.private_subnet_ids, var.public_subnet_ids)
+    security_group_ids = [aws_security_group.cluster.id]
   }
 
   depends_on = [
@@ -46,7 +67,7 @@ resource "aws_eks_cluster" "this" {
   ]
 }
 
-# --- Node IAM Role ---
+# --- IAM Role for Nodes ---
 data "aws_iam_policy_document" "node_assume_role" {
   statement {
     effect = "Allow"
@@ -63,7 +84,7 @@ resource "aws_iam_role" "node" {
   assume_role_policy = data.aws_iam_policy_document.node_assume_role.json
 }
 
-# Attach required managed policies for nodes
+# Required IAM policies for worker nodes
 resource "aws_iam_role_policy_attachment" "worker_node_policy" {
   role       = aws_iam_role.node.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
@@ -79,7 +100,12 @@ resource "aws_iam_role_policy_attachment" "registry_read_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
-# --- Managed Node Group ---
+resource "aws_iam_role_policy_attachment" "ssm_core_policy" {
+  role       = aws_iam_role.node.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+# --- Node Group ---
 resource "aws_eks_node_group" "nodes" {
   cluster_name    = aws_eks_cluster.this.name
   node_group_name = "${var.cluster_name}-nodes"
@@ -96,6 +122,7 @@ resource "aws_eks_node_group" "nodes" {
     aws_eks_cluster.this,
     aws_iam_role_policy_attachment.worker_node_policy,
     aws_iam_role_policy_attachment.cni_policy,
-    aws_iam_role_policy_attachment.registry_read_policy
+    aws_iam_role_policy_attachment.registry_read_policy,
+    aws_iam_role_policy_attachment.ssm_core_policy
   ]
 }

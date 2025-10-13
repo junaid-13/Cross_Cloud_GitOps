@@ -1,0 +1,4 @@
+resources:
+- ../../kustomization.yaml
+patchesStrategicMerge:
+- replica-patch.yaml

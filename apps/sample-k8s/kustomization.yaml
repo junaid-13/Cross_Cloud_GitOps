@@ -1,0 +1,4 @@
+resources:
+- base/frontend-deployment.yaml
+- base/backend-deployment.yaml
+- base/postgres-deployment.yaml

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: self-heal-script
+data:
+  self-heal.sh: |
+$(sed -e 's/^/    /' automation/scripts/self_heal.sh)

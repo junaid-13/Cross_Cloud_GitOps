@@ -1,0 +1,22 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+NAMESPACE="${1:-apps}"
+DEPLOYMENT="${2:-backend}"
+REPO_URL="${3:-https://github.com/junaid-13/Cross_Cloud_GitOps.git}"
+OVERLAY_PATH="${4:-apps/sample-k8s/overlays/prod}"
+
+AVAILABLE=$(kubectl -n "$NAMESPACE" get deploy "$DEPLOYMENT" -o jsonpath='{.status.availableReplicas}' || echo "0")
+DESIRED=$(kubectl -n "$NAMESPACE" get deploy "$DEPLOYMENT" -o jsonpath='{.status.replicas}' || echo "0")
+
+AVAILABLE=${AVAILABLE:-0}
+DESIRED=${DESIRED:-0}
+
+if [ "$AVAILABLE" -lt "$DESIRED" ]; then
+    echo "Detected unhealthy deployment ($DEPLOYMENT): available=$AVAILABLE desired=$DESIRED"
+    echo "Re-applying manifests from git overlay: $OVERLAY_PATH"
+    kubectl kustomize "$OVERLAY_PATH" | kubectl apply -f -
+
+else
+    echo "Deployment healthy: available=$AVAILABLE desired=$DESIRED"
+fi

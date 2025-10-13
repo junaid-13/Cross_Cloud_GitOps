@@ -2,7 +2,7 @@
 # Networking (VPC, Subnets)
 # -------------------------
 module "vpc" {
-  source = "${path.module}/modules/aws_network"
+  source = "../modules/aws_network"
 
   name = var.cluster_name
   cidr = var.vpc_cidr
@@ -12,7 +12,7 @@ module "vpc" {
 # EKS Cluster
 # -------------------------
 module "eks" {
-  source                     = "${path.module}/modules/aws_eks"
+  source                     = "../modules/aws_eks"
   cluster_name               = var.cluster_name
   cluster_version            = var.cluster_version
   vpc_id                     = module.vpc.vpc_id

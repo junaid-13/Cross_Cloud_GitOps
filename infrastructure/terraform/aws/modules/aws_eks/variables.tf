@@ -21,3 +21,13 @@ variable "public_subnet_ids" {
 variable "node_group_desired_capacity" {
   type = number
 }
+
+variable "name" {
+  type = string
+  description = "Name prefix for VPC and subnets"
+}
+
+variable "cidr" {
+  type = string
+  description = "CIDR block for the VPC"
+}

@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: observability
+  namespace: argocd
+  spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/junaid-13/Cross_Cloud_GitOps.git'
+    chart: kube-prometheus-stack
+    targetRevision: "45.6.0"
+    helm:
+      values: |
+        prometheus:
+          prometheusSpec:
+            routePrefix: /
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

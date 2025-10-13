@@ -1,0 +1,13 @@
+{
+    "dashboard": {
+        "id": null,
+        "title": "Sample App Overview",
+        "panels": [
+            {
+                "type": "graph",
+                "title": "CPU Usage",
+                "targets": []
+            }
+        ]
+    }
+}

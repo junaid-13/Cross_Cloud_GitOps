@@ -1,2 +1,11 @@
 *.csv
 *.pem
+
+# Terraform
+\.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Kubectl files
+kubeconfig

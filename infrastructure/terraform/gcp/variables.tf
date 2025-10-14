@@ -1,15 +1,15 @@
 variable "project_id" {
-    type = string
+  type = string
 }
 variable "region" {
-    type = string
-    default = "us-central1"
+  type    = string
+  default = "us-central1"
 }
 variable "zone" {
-    type = string
-    default = "us-central1-a"
+  type    = string
+  default = "us-central1-a"
 }
 variable "cluster_name" {
-    type = string
-    default = "crosscloud-gke"
+  type    = string
+  default = "crosscloud-gke"
 }

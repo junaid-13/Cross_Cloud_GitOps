@@ -51,8 +51,7 @@ echo "Waiting for ArgoCD server to be ready in EKS..."
 kubectl wait --for=condition=available --timeout=600s deployment/argocd-server -n argocd
 
 echo "EKS ArgoCD initial admin password:"
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -decode; echo
-
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode; echo
 
 echo "Register ArgoCD Applications"
 kubectl config use-context "arn:aws:eks:${EKS_REGION}:$(aws sts get-caller-identity --query Account --output text):cluster/${EKS_CLUSTER_NAME}" || true

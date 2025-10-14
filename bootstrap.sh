@@ -39,7 +39,7 @@ GKE_CLUSTER_NAME=$(terraform output -raw gke_cluster_name)
 GKE_ZONE=$(terraform output -raw gke_zone)
 
 echo "Configure kubeconfig for GKE"
-gcloud container clusters get-credentials "${GKE_CLUSTER_NAME}" --zone "${GKE_ZONE}" --project "$(terraform output -raw project_id")
+gcloud container clusters get-credentials "${GKE_CLUSTER_NAME}" --zone "${GKE_ZONE}" --project "$(terraform output -raw project_id)"
 
 echo "3) Install ArgoCD in both clusters"
 

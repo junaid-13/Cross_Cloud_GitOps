@@ -1,6 +1,8 @@
 variable "project_id" {
-  type = string
+  description = "Google Cloud project ID where the GKE cluster and networking will be deployed."
+  type        = string
 }
+
 variable "region" {
   type    = string
   default = "us-central1"

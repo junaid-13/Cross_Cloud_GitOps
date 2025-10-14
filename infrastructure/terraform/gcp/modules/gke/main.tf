@@ -38,12 +38,14 @@ resource "google_container_node_pool" "primary_nodes" {
   name       = "${var.name}-pool"
   cluster    = google_container_cluster.primary.name
   location   = var.zone
-  node_count = 2
+  node_count = var.node_count
   project    = var.project
 
   node_config {
-    preemptible  = false
-    machine_type = "e2-medium"
+    # preemptible  = false
+    machine_type = var.machine_type
+    disk_size_gb = var.disk_size_gb
+    image_type = "COS_CONTAINERD"
 
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform",
@@ -54,11 +56,20 @@ resource "google_container_node_pool" "primary_nodes" {
     }
 
     labels = {
-      environment = "dev"
+      environment = var.environment
     }
 
     tags = ["gke-node", var.name]
   }
 
+  management {
+    auto_repair = true
+    auto_upgrade = true
+  }
+
+  autoscaling {
+    min_node_count = 1
+    max_node_count = 5
+  }
   depends_on = [google_container_cluster.primary]
 }

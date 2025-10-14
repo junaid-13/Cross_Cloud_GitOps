@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: observability
   namespace: argocd
-  spec:
+spec:
   project: default
   source:
     repoURL: 'https://github.com/junaid-13/Cross_Cloud_GitOps.git'

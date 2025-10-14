@@ -1,4 +1,5 @@
 name: CI
+
 on:
   pull_request:
     paths:
@@ -12,50 +13,65 @@ jobs:
   terraform-fmt:
     runs-on: ubuntu-latest
     steps:
-      -uses: actions/checkout@v4
-      -name: Check terraform fmt (aws)
+      - uses: actions/checkout@v4
+
+      - name: Check terraform fmt (aws)
         run: |
           cd infrastructure/terraform/aws
           terraform fmt -check
-      -name: Check terraform fmt (gcp)
+
+      - name: Check terraform fmt (gcp)
         run: |
           cd infrastructure/terraform/gcp
           terraform fmt -check
-      
-k8s-lint:
-  runs-on: ubuntu-latest
-  needs: terraform-fmt
-  steps:
-    - uses: actions/checkout@v4
-    - name: Install kubeval
-      run: |
-        set -e
-        for d in apps/*/overlays/* ; do
-          kustomize build "$d" | kubeval --strict --ignore-missing-schemas || exit 1
-        done
 
-integration:
-  runs-on: ubuntu-latest
-  needs: [terraform-fmt, k8s-lint]
-  steps:
-    - uses: actions/checkout@v4
-    - name: Install argocd CLI
-      run: |
-        curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-        chmod +x /usr/local/bin/argocd
-    - name: Check ArgoCD sync
-      env:
-        ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}
-        ArgoCD_USER: ${{ secrets.ARGOCD_USER }}
-        ArgoCD_PASS: ${{ secrets.ARGOCD_PASS }}
-      run: |
-        if [ -z "$ARGOCD_SERVER" ]; then
-          echo "Skipping ArgoCD check because ARGOCD_SERVER is not set"; exit 0
-        fi
-        argocd login "$ARGOCD_SERVER" --username "$ArgoCD_USER" --password "$ArgoCD_PASS" --insecure
-        #Check all apps registered by bootstrap exist and are healthy
-        for app in infra apps observability automation; do
-          status=$(argocd app get "$app" -o json | jq -r '.status.health.status + " " + .status.sync.status')
-          echo "$app -> $status"
-        done
-        
+  k8s-lint:
+    runs-on: ubuntu-latest
+    needs: terraform-fmt
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y curl jq
+          curl -sSLo /usr/local/bin/kustomize https://github.com/kubernetes-sigs/kustomize/releases/latest/download/kustomize_linux_amd64
+          chmod +x /usr/local/bin/kustomize
+          curl -sSLo /usr/local/bin/kubeval https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64
+          chmod +x /usr/local/bin/kubeval
+
+      - name: Validate Kubernetes manifests
+        run: |
+          set -e
+          for d in apps/*/overlays/* ; do
+            echo "Validating $d..."
+            kustomize build "$d" | kubeval --strict --ignore-missing-schemas || exit 1
+          done
+
+  integration:
+    runs-on: ubuntu-latest
+    needs: [terraform-fmt, k8s-lint]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ArgoCD CLI
+        run: |
+          curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          chmod +x /usr/local/bin/argocd
+
+      - name: Check ArgoCD sync
+        env:
+          ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}
+          ARGOCD_USER: ${{ secrets.ARGOCD_USER }}
+          ARGOCD_PASS: ${{ secrets.ARGOCD_PASS }}
+        run: |
+          if [ -z "$ARGOCD_SERVER" ]; then
+            echo "Skipping ArgoCD check because ARGOCD_SERVER is not set"; exit 0
+          fi
+          argocd login "$ARGOCD_SERVER" --username "$ARGOCD_USER" --password "$ARGOCD_PASS" --insecure
+          # Check all apps registered by bootstrap exist and are healthy
+          for app in infra apps observability automation; do
+            echo "Checking $app..."
+            status=$(argocd app get "$app" -o json | jq -r '.status.health.status + " " + .status.sync.status')
+            echo "$app -> $status"
+          done

@@ -1,0 +1,504 @@
+1) Terraform initialize and apply for AWS
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+[0m[1mInitializing provider plugins...[0m
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Using previously-installed hashicorp/aws v5.100.0
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+[0m[1mmodule.vpc.data.aws_availability_zones.available: Reading...[0m[0m
+[0m[1mmodule.vpc.aws_vpc.this: Refreshing state... [id=vpc-07c356a7192aa5994][0m
+[0m[1mmodule.eks.data.aws_iam_policy_document.eks_assume_role: Reading...[0m[0m
+[0m[1mmodule.vpc.aws_eip.nat: Refreshing state... [id=eipalloc-0704ac8abdfbd58c9][0m
+[0m[1mmodule.eks.data.aws_iam_policy_document.node_assume_role: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_iam_policy_document.node_assume_role: Read complete after 0s [id=2851119427][0m
+[0m[1mmodule.eks.data.aws_iam_policy_document.eks_assume_role: Read complete after 0s [id=3552664922][0m
+[0m[1mmodule.eks.aws_iam_role.node: Refreshing state... [id=crosscloud-eks-node-role][0m
+[0m[1mmodule.eks.aws_iam_role.eks: Refreshing state... [id=crosscloud-eks-eks-role][0m
+[0m[1mmodule.vpc.data.aws_availability_zones.available: Read complete after 0s [id=us-east-1][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.eks_cluster_policy: Refreshing state... [id=crosscloud-eks-eks-role-20251021112925816500000003][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.eks_service_policy: Refreshing state... [id=crosscloud-eks-eks-role-20251021112925776300000002][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.ssm_core_policy: Refreshing state... [id=crosscloud-eks-node-role-20251021112925761000000001][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.registry_read_policy: Refreshing state... [id=crosscloud-eks-node-role-20251021112925991700000005][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.cni_policy: Refreshing state... [id=crosscloud-eks-node-role-20251021112926021600000006][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.worker_node_policy: Refreshing state... [id=crosscloud-eks-node-role-20251021112925830800000004][0m
+[0m[1mmodule.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-02ebb3ef53be01ef9][0m
+[0m[1mmodule.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-07e4262df04701302][0m
+[0m[1mmodule.vpc.aws_internet_gateway.igw: Refreshing state... [id=igw-090cd2e1c7255eabd][0m
+[0m[1mmodule.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-03e3a4044db3b5a75][0m
+[0m[1mmodule.eks.aws_security_group.cluster: Refreshing state... [id=sg-0391964e9740f5fb6][0m
+[0m[1mmodule.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-01601efab96104ba7][0m
+[0m[1mmodule.vpc.aws_route_table.public: Refreshing state... [id=rtb-05414ad6f935206a3][0m
+[0m[1mmodule.eks.aws_eks_cluster.this: Refreshing state... [id=crosscloud-eks][0m
+[0m[1mmodule.vpc.aws_nat_gateway.nat: Refreshing state... [id=nat-0715c6f0e24a86492][0m
+[0m[1mmodule.vpc.aws_route_table_association.public_assoc[1]: Refreshing state... [id=rtbassoc-0fe70fcd1542ee668][0m
+[0m[1mmodule.vpc.aws_route_table_association.public_assoc[0]: Refreshing state... [id=rtbassoc-02336c16c371efe51][0m
+[0m[1mmodule.vpc.aws_route_table.private: Refreshing state... [id=rtb-085a25c7106ebdadc][0m
+[0m[1mmodule.vpc.aws_route_table_association.private_assoc[1]: Refreshing state... [id=rtbassoc-07f7abccbad5a3424][0m
+[0m[1mmodule.vpc.aws_route_table_association.private_assoc[0]: Refreshing state... [id=rtbassoc-093975e2cbd6c36c6][0m
+[0m[1mmodule.eks.aws_eks_node_group.nodes: Refreshing state... [id=crosscloud-eks:crosscloud-eks-nodes][0m
+
+[0m[1m[32mNo changes.[0m[1m Your infrastructure matches the configuration.[0m
+
+[0mTerraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.
+[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mDeprecated Parameter[0m
+[33m│[0m [0m
+[33m│[0m [0m[0mThe parameter "dynamodb_table" is deprecated. Use parameter "use_lockfile" instead.
+[33m╵[0m[0m
+[0m[1m[32m
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0meks_cluster_name = "crosscloud-eks"
+region = "us-east-1"
+Configure kubeconfig for EKS cluster
+Updated context arn:aws:eks:us-east-1:211125491907:cluster/crosscloud-eks in /home/ubuntu/.kube/config
+2) Terraform initialize and apply for GCP
+[0m[1mInitializing the backend...[0m
+[0m[1mInitializing modules...[0m
+[0m[1mInitializing provider plugins...[0m
+- Reusing previous version of hashicorp/google from the dependency lock file
+- Using previously-installed hashicorp/google v5.45.2
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.gke.google_container_cluster.primary[0m will be created
+[0m  [32m+[0m[0m resource "google_container_cluster" "primary" {
+      [32m+[0m[0m cluster_ipv4_cidr                        = (known after apply)
+      [32m+[0m[0m datapath_provider                        = (known after apply)
+      [32m+[0m[0m default_max_pods_per_node                = (known after apply)
+      [32m+[0m[0m deletion_protection                      = true
+      [32m+[0m[0m enable_cilium_clusterwide_network_policy = false
+      [32m+[0m[0m enable_intranode_visibility              = (known after apply)
+      [32m+[0m[0m enable_kubernetes_alpha                  = false
+      [32m+[0m[0m enable_l4_ilb_subsetting                 = false
+      [32m+[0m[0m enable_legacy_abac                       = false
+      [32m+[0m[0m enable_multi_networking                  = false
+      [32m+[0m[0m enable_shielded_nodes                    = true
+      [32m+[0m[0m endpoint                                 = (known after apply)
+      [32m+[0m[0m id                                       = (known after apply)
+      [32m+[0m[0m initial_node_count                       = 1
+      [32m+[0m[0m label_fingerprint                        = (known after apply)
+      [32m+[0m[0m location                                 = "us-central1-a"
+      [32m+[0m[0m logging_service                          = "logging.googleapis.com/kubernetes"
+      [32m+[0m[0m master_version                           = (known after apply)
+      [32m+[0m[0m monitoring_service                       = "monitoring.googleapis.com/kubernetes"
+      [32m+[0m[0m name                                     = "crosscloud-gke"
+      [32m+[0m[0m network                                  = "crosscloud-gke"
+      [32m+[0m[0m networking_mode                          = (known after apply)
+      [32m+[0m[0m node_locations                           = (known after apply)
+      [32m+[0m[0m node_version                             = (known after apply)
+      [32m+[0m[0m operation                                = (known after apply)
+      [32m+[0m[0m private_ipv6_google_access               = (known after apply)
+      [32m+[0m[0m project                                  = "cross-cloud-gitops"
+      [32m+[0m[0m remove_default_node_pool                 = true
+      [32m+[0m[0m self_link                                = (known after apply)
+      [32m+[0m[0m services_ipv4_cidr                       = (known after apply)
+      [32m+[0m[0m subnetwork                               = "crosscloud-gke-subnet"
+      [32m+[0m[0m tpu_ipv4_cidr_block                      = (known after apply)
+
+      [32m+[0m[0m addons_config (known after apply)
+
+      [32m+[0m[0m authenticator_groups_config (known after apply)
+
+      [32m+[0m[0m cluster_autoscaling (known after apply)
+
+      [32m+[0m[0m confidential_nodes (known after apply)
+
+      [32m+[0m[0m cost_management_config (known after apply)
+
+      [32m+[0m[0m database_encryption (known after apply)
+
+      [32m+[0m[0m default_snat_status (known after apply)
+
+      [32m+[0m[0m gateway_api_config (known after apply)
+
+      [32m+[0m[0m identity_service_config (known after apply)
+
+      [32m+[0m[0m ip_allocation_policy {
+          [32m+[0m[0m cluster_ipv4_cidr_block       = (known after apply)
+          [32m+[0m[0m cluster_secondary_range_name  = (known after apply)
+          [32m+[0m[0m services_ipv4_cidr_block      = (known after apply)
+          [32m+[0m[0m services_secondary_range_name = (known after apply)
+          [32m+[0m[0m stack_type                    = "IPV4"
+
+          [32m+[0m[0m pod_cidr_overprovision_config (known after apply)
+        }
+
+      [32m+[0m[0m logging_config (known after apply)
+
+      [32m+[0m[0m master_auth (known after apply)
+
+      [32m+[0m[0m master_authorized_networks_config (known after apply)
+
+      [32m+[0m[0m mesh_certificates (known after apply)
+
+      [32m+[0m[0m monitoring_config (known after apply)
+
+      [32m+[0m[0m node_config (known after apply)
+
+      [32m+[0m[0m node_pool (known after apply)
+
+      [32m+[0m[0m node_pool_auto_config (known after apply)
+
+      [32m+[0m[0m node_pool_defaults (known after apply)
+
+      [32m+[0m[0m notification_config (known after apply)
+
+      [32m+[0m[0m release_channel {
+          [32m+[0m[0m channel = "REGULAR"
+        }
+
+      [32m+[0m[0m security_posture_config (known after apply)
+
+      [32m+[0m[0m service_external_ips_config (known after apply)
+
+      [32m+[0m[0m vertical_pod_autoscaling (known after apply)
+
+      [32m+[0m[0m workload_identity_config {
+          [32m+[0m[0m workload_pool = "cross-cloud-gitops.svc.id.goog"
+        }
+    }
+
+[1m  # module.gke.google_container_node_pool.primary_nodes[0m will be created
+[0m  [32m+[0m[0m resource "google_container_node_pool" "primary_nodes" {
+      [32m+[0m[0m cluster                     = "crosscloud-gke"
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m initial_node_count          = (known after apply)
+      [32m+[0m[0m instance_group_urls         = (known after apply)
+      [32m+[0m[0m location                    = "us-central1-a"
+      [32m+[0m[0m managed_instance_group_urls = (known after apply)
+      [32m+[0m[0m max_pods_per_node           = (known after apply)
+      [32m+[0m[0m name                        = "crosscloud-gke-pool"
+      [32m+[0m[0m name_prefix                 = (known after apply)
+      [32m+[0m[0m node_count                  = 2
+      [32m+[0m[0m node_locations              = (known after apply)
+      [32m+[0m[0m operation                   = (known after apply)
+      [32m+[0m[0m project                     = "cross-cloud-gitops"
+      [32m+[0m[0m version                     = (known after apply)
+
+      [32m+[0m[0m autoscaling {
+          [32m+[0m[0m location_policy = (known after apply)
+          [32m+[0m[0m max_node_count  = 5
+          [32m+[0m[0m min_node_count  = 1
+        }
+
+      [32m+[0m[0m management {
+          [32m+[0m[0m auto_repair  = true
+          [32m+[0m[0m auto_upgrade = true
+        }
+
+      [32m+[0m[0m network_config (known after apply)
+
+      [32m+[0m[0m node_config {
+          [32m+[0m[0m disk_size_gb      = 100
+          [32m+[0m[0m disk_type         = (known after apply)
+          [32m+[0m[0m effective_taints  = (known after apply)
+          [32m+[0m[0m guest_accelerator = (known after apply)
+          [32m+[0m[0m image_type        = "COS_CONTAINERD"
+          [32m+[0m[0m labels            = {
+              [32m+[0m[0m "environment" = "dev"
+            }
+          [32m+[0m[0m local_ssd_count   = (known after apply)
+          [32m+[0m[0m logging_variant   = (known after apply)
+          [32m+[0m[0m machine_type      = "e2-medium"
+          [32m+[0m[0m metadata          = {
+              [32m+[0m[0m "disable-legacy-endpoints" = "true"
+            }
+          [32m+[0m[0m min_cpu_platform  = (known after apply)
+          [32m+[0m[0m oauth_scopes      = [
+              [32m+[0m[0m "https://www.googleapis.com/auth/cloud-platform",
+            ]
+          [32m+[0m[0m preemptible       = false
+          [32m+[0m[0m service_account   = (known after apply)
+          [32m+[0m[0m spot              = false
+          [32m+[0m[0m tags              = [
+              [32m+[0m[0m "gke-node",
+              [32m+[0m[0m "crosscloud-gke",
+            ]
+
+          [32m+[0m[0m confidential_nodes (known after apply)
+
+          [32m+[0m[0m gcfs_config (known after apply)
+
+          [32m+[0m[0m kubelet_config (known after apply)
+
+          [32m+[0m[0m shielded_instance_config (known after apply)
+
+          [32m+[0m[0m workload_metadata_config (known after apply)
+        }
+
+      [32m+[0m[0m upgrade_settings (known after apply)
+    }
+
+[1m  # module.gke.google_project_service.container_api[0m will be created
+[0m  [32m+[0m[0m resource "google_project_service" "container_api" {
+      [32m+[0m[0m disable_on_destroy = false
+      [32m+[0m[0m id                 = (known after apply)
+      [32m+[0m[0m project            = "cross-cloud-gitops"
+      [32m+[0m[0m service            = "container.googleapis.com"
+    }
+
+[1m  # module.network.google_compute_network.vpc[0m will be created
+[0m  [32m+[0m[0m resource "google_compute_network" "vpc" {
+      [32m+[0m[0m auto_create_subnetworks                   = false
+      [32m+[0m[0m delete_default_routes_on_create           = false
+      [32m+[0m[0m gateway_ipv4                              = (known after apply)
+      [32m+[0m[0m id                                        = (known after apply)
+      [32m+[0m[0m internal_ipv6_range                       = (known after apply)
+      [32m+[0m[0m mtu                                       = (known after apply)
+      [32m+[0m[0m name                                      = "crosscloud-gke"
+      [32m+[0m[0m network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL"
+      [32m+[0m[0m numeric_id                                = (known after apply)
+      [32m+[0m[0m project                                   = "cross-cloud-gitops"
+      [32m+[0m[0m routing_mode                              = "REGIONAL"
+      [32m+[0m[0m self_link                                 = (known after apply)
+    }
+
+[1m  # module.network.google_compute_subnetwork.subnet[0m will be created
+[0m  [32m+[0m[0m resource "google_compute_subnetwork" "subnet" {
+      [32m+[0m[0m creation_timestamp         = (known after apply)
+      [32m+[0m[0m external_ipv6_prefix       = (known after apply)
+      [32m+[0m[0m fingerprint                = (known after apply)
+      [32m+[0m[0m gateway_address            = (known after apply)
+      [32m+[0m[0m id                         = (known after apply)
+      [32m+[0m[0m internal_ipv6_prefix       = (known after apply)
+      [32m+[0m[0m ip_cidr_range              = "10.10.0.0/16"
+      [32m+[0m[0m ipv6_cidr_range            = (known after apply)
+      [32m+[0m[0m name                       = "crosscloud-gke-subnet"
+      [32m+[0m[0m network                    = (known after apply)
+      [32m+[0m[0m private_ip_google_access   = true
+      [32m+[0m[0m private_ipv6_google_access = (known after apply)
+      [32m+[0m[0m project                    = "cross-cloud-gitops"
+      [32m+[0m[0m purpose                    = (known after apply)
+      [32m+[0m[0m region                     = "us-central1"
+      [32m+[0m[0m secondary_ip_range         = (known after apply)
+      [32m+[0m[0m self_link                  = (known after apply)
+      [32m+[0m[0m stack_type                 = (known after apply)
+    }
+
+[1m  # module.network.google_project_service.compute_api[0m will be created
+[0m  [32m+[0m[0m resource "google_project_service" "compute_api" {
+      [32m+[0m[0m disable_on_destroy = false
+      [32m+[0m[0m id                 = (known after apply)
+      [32m+[0m[0m project            = "cross-cloud-gitops"
+      [32m+[0m[0m service            = "compute.googleapis.com"
+    }
+
+[1mPlan:[0m 6 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m gke_cluster_name = "crosscloud-gke"
+  [32m+[0m[0m gke_zone         = "us-central1-a"
+  [32m+[0m[0m project_id       = "cross-cloud-gitops"
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Saved the plan to: tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "tfplan"
+[0m[1mmodule.gke.google_project_service.container_api: Creating...[0m[0m
+[0m[1mmodule.network.google_project_service.compute_api: Creating...[0m[0m
+[0m[1mmodule.network.google_project_service.compute_api: Creation complete after 4s [id=cross-cloud-gitops/compute.googleapis.com][0m
+[0m[1mmodule.gke.google_project_service.container_api: Creation complete after 4s [id=cross-cloud-gitops/container.googleapis.com][0m
+[0m[1mmodule.network.google_compute_network.vpc: Creating...[0m[0m
+[0m[1mmodule.network.google_compute_network.vpc: Still creating... [00m10s elapsed][0m[0m
+[0m[1mmodule.network.google_compute_network.vpc: Still creating... [00m20s elapsed][0m[0m
+[0m[1mmodule.network.google_compute_network.vpc: Creation complete after 21s [id=projects/cross-cloud-gitops/global/networks/crosscloud-gke][0m
+[0m[1mmodule.network.google_compute_subnetwork.subnet: Creating...[0m[0m
+[0m[1mmodule.network.google_compute_subnetwork.subnet: Still creating... [00m10s elapsed][0m[0m
+[0m[1mmodule.network.google_compute_subnetwork.subnet: Still creating... [00m20s elapsed][0m[0m
+[0m[1mmodule.network.google_compute_subnetwork.subnet: Creation complete after 22s [id=projects/cross-cloud-gitops/regions/us-central1/subnetworks/crosscloud-gke-subnet][0m
+[0m[1mmodule.gke.google_container_cluster.primary: Creating...[0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [00m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [00m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [00m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [00m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [00m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [01m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [01m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [01m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [01m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [01m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [01m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [02m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [02m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [02m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [02m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [02m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [02m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [03m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [03m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [03m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [03m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [03m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [03m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [04m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [04m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [04m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [04m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [04m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [04m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [05m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [05m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [05m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [05m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [05m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [05m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [06m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [06m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [06m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [06m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [06m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [06m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [07m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [07m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [07m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [07m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [07m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [07m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [08m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [08m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [08m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [08m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [08m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [08m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [09m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [09m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [09m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [09m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [09m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [09m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [10m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [10m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [10m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [10m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [10m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [10m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [11m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [11m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [11m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [11m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Still creating... [11m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_cluster.primary: Creation complete after 11m48s [id=projects/cross-cloud-gitops/locations/us-central1-a/clusters/crosscloud-gke][0m
+[0m[1mmodule.gke.google_container_node_pool.primary_nodes: Creating...[0m[0m
+[0m[1mmodule.gke.google_container_node_pool.primary_nodes: Still creating... [00m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_node_pool.primary_nodes: Still creating... [00m20s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_node_pool.primary_nodes: Still creating... [00m30s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_node_pool.primary_nodes: Still creating... [00m40s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_node_pool.primary_nodes: Still creating... [00m50s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_node_pool.primary_nodes: Still creating... [01m00s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_node_pool.primary_nodes: Still creating... [01m10s elapsed][0m[0m
+[0m[1mmodule.gke.google_container_node_pool.primary_nodes: Creation complete after 1m12s [id=projects/cross-cloud-gitops/locations/us-central1-a/clusters/crosscloud-gke/nodePools/crosscloud-gke-pool][0m
+[0m[1m[32m
+Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0mgke_cluster_name = "crosscloud-gke"
+gke_zone = "us-central1-a"
+project_id = "cross-cloud-gitops"
+Configure kubeconfig for GKE
+3) Install ArgoCD in both clusters
+Switched to context "arn:aws:eks:us-east-1:211125491907:cluster/crosscloud-eks".
+namespace/argocd created
+customresourcedefinition.apiextensions.k8s.io/applications.argoproj.io created
+customresourcedefinition.apiextensions.k8s.io/applicationsets.argoproj.io created
+customresourcedefinition.apiextensions.k8s.io/appprojects.argoproj.io created
+serviceaccount/argocd-application-controller created
+serviceaccount/argocd-applicationset-controller created
+serviceaccount/argocd-dex-server created
+serviceaccount/argocd-notifications-controller created
+serviceaccount/argocd-redis created
+serviceaccount/argocd-repo-server created
+serviceaccount/argocd-server created
+role.rbac.authorization.k8s.io/argocd-application-controller created
+role.rbac.authorization.k8s.io/argocd-applicationset-controller created
+role.rbac.authorization.k8s.io/argocd-dex-server created
+role.rbac.authorization.k8s.io/argocd-notifications-controller created
+role.rbac.authorization.k8s.io/argocd-redis created
+role.rbac.authorization.k8s.io/argocd-server created
+clusterrole.rbac.authorization.k8s.io/argocd-application-controller created
+clusterrole.rbac.authorization.k8s.io/argocd-applicationset-controller created
+clusterrole.rbac.authorization.k8s.io/argocd-server created
+rolebinding.rbac.authorization.k8s.io/argocd-application-controller created
+rolebinding.rbac.authorization.k8s.io/argocd-applicationset-controller created
+rolebinding.rbac.authorization.k8s.io/argocd-dex-server created
+rolebinding.rbac.authorization.k8s.io/argocd-notifications-controller created
+rolebinding.rbac.authorization.k8s.io/argocd-redis created
+rolebinding.rbac.authorization.k8s.io/argocd-server created
+clusterrolebinding.rbac.authorization.k8s.io/argocd-application-controller created
+clusterrolebinding.rbac.authorization.k8s.io/argocd-applicationset-controller created
+clusterrolebinding.rbac.authorization.k8s.io/argocd-server created
+configmap/argocd-cm created
+configmap/argocd-cmd-params-cm created
+configmap/argocd-gpg-keys-cm created
+configmap/argocd-notifications-cm created
+configmap/argocd-rbac-cm created
+configmap/argocd-ssh-known-hosts-cm created
+configmap/argocd-tls-certs-cm created
+secret/argocd-notifications-secret created
+secret/argocd-secret created
+service/argocd-applicationset-controller created
+service/argocd-dex-server created
+service/argocd-metrics created
+service/argocd-notifications-controller-metrics created
+service/argocd-redis created
+service/argocd-repo-server created
+service/argocd-server created
+service/argocd-server-metrics created
+deployment.apps/argocd-applicationset-controller created
+deployment.apps/argocd-dex-server created
+deployment.apps/argocd-notifications-controller created
+deployment.apps/argocd-redis created
+deployment.apps/argocd-repo-server created
+deployment.apps/argocd-server created
+statefulset.apps/argocd-application-controller created
+networkpolicy.networking.k8s.io/argocd-application-controller-network-policy created
+networkpolicy.networking.k8s.io/argocd-applicationset-controller-network-policy created
+networkpolicy.networking.k8s.io/argocd-dex-server-network-policy created
+networkpolicy.networking.k8s.io/argocd-notifications-controller-network-policy created
+networkpolicy.networking.k8s.io/argocd-redis-network-policy created
+networkpolicy.networking.k8s.io/argocd-repo-server-network-policy created
+networkpolicy.networking.k8s.io/argocd-server-network-policy created
+Waiting for ArgoCD server to be ready in EKS...
+deployment.apps/argocd-server condition met
+EKS ArgoCD initial admin password:
+FiA50JA0lZiBCD6a
+Register ArgoCD Applications
+Switched to context "arn:aws:eks:us-east-1:211125491907:cluster/crosscloud-eks".
+application.argoproj.io/infra created
+application.argoproj.io/apps created
+application.argoproj.io/observability created
+application.argoproj.io/automation created
+Bootstrap completed successfully.

@@ -16,3 +16,7 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true      # 🚀 allows ArgoCD to auto-create the namespace
+      - ApplyOutOfSyncOnly=true   # optional: skips already synced resources
+

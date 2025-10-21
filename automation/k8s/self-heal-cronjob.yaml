@@ -2,22 +2,26 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: self-heal-cron
+  namespace: automation
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:
     spec:
-      serviceAccountName: self-heal-sa
-      containers:
-      - name: self-heal
-        image: bitnami/kubectl:latest
-        command: ["/bin/sh", "-c"]
-        args:
-          - /opt/self_heal.sh apps backend https://github.com/junaid-13/Cross_Cloud_GitOps.git apps/sample-k8s/overlays/prod
-        volumeMounts:
-        - name: script
-          mountPath: /opt/self_heal
-      restartPolicy: OnFailure
-      volumes:
-      - name: script
-        configMap:
-          name: self-heal-script
+      template:
+        spec:
+          serviceAccountName: self-heal-sa
+          containers:
+            - name: self-heal
+              image: bitnami/kubectl:latest
+              command: ["/bin/sh", "-c"]
+              args:
+                - /opt/self_heal.sh apps backend https://github.com/junaid-13/Cross_Cloud_GitOps.git apps/sample-k8s/overlays/prod
+              volumeMounts:
+                - name: script
+                  mountPath: /opt/self_heal
+          restartPolicy: OnFailure
+          volumes:
+            - name: script
+              configMap:
+                name: self-heal-script
+

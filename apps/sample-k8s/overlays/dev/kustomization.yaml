@@ -7,6 +7,8 @@ resources:
 # If replica-patch.yaml exists, keep it; otherwise remove these two lines
 # patches:
 #   - path: replica-patch.yaml
+patches:
+  - path: replica-patch.yaml
 
 namePrefix: dev-
 namespace: apps

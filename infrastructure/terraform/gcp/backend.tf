@@ -2,6 +2,6 @@ terraform {
   backend "gcs" {
     bucket = "crosscloud-terraform-state"
     prefix = "gcp/gke"
-    region = var.region
+    region = us-east1
   }
 }

@@ -5,7 +5,7 @@ resources:
   - ../../base
 
 patches:
-  - path: replica-patch.yaml  # ✅ no target selector
+  - path: replica-patch.yaml
 
 namePrefix: dev-
 labels:

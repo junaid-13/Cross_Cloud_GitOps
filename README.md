@@ -2,7 +2,7 @@
 
 ### Terraform • ArgoCD • Kubernetes • AWS EKS • GCP GKE
 
-[![CI Status](https://github.com/junaid-13/Cross_Cloud_GitOps/actions/workflows/ci.yml/badge.svg)](https://github.com/junaid-13/Cross_Cloud_GitOps/actions)
+[![CI Status](https://github.com/junaid-13/Cross_Cloud_GitOps/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/junaid-13/Cross_Cloud_GitOps/actions)
 [![ArgoCD](https://img.shields.io/badge/GitOps-ArgoCD-blue?logo=argo)](https://argo-cd.readthedocs.io/)
 [![Terraform](https://img.shields.io/badge/IaC-Terraform-purple?logo=terraform)](https://www.terraform.io/)
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-Ready-326ce5?logo=kubernetes)](https://kubernetes.io/)

@@ -6,7 +6,7 @@ resource "google_container_cluster" "primary" {
   remove_default_node_pool = true
   initial_node_count       = 1
   project                  = var.project
-
+  deletion_protection      = false
   # Enable VPC-native (recommended)
   ip_allocation_policy {}
 
@@ -31,7 +31,7 @@ resource "google_project_service" "container_api" {
   project = var.project
   service = "container.googleapis.com"
 
-  disable_on_destroy = false
+  disable_on_destroy = true
 }
 
 resource "google_container_node_pool" "primary_nodes" {

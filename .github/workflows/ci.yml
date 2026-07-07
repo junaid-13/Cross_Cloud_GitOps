@@ -45,13 +45,13 @@ jobs:
       - name: Setup kubeval
         uses: ./.github/actions/install-kubeval
         with:
-          kubeval-version: '0.16'
+          kubeval-version: '0.16.1'
 
       - name: Setup kustomize
         uses: ./.github/actions/install-kustomize
         with:
           kustomize-version: '5.8.1'
-          
+
       - name: Validate Kubernetes manifests
         run: |
           set -e

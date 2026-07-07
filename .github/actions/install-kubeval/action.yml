@@ -5,7 +5,7 @@ inputs:
   kubeval-version:
     description: 'Kubeval version to install'
     required: false
-    default: '0.16'
+    default: '0.16.1'
 runs:
   using: 'composite'
   steps:
@@ -19,3 +19,5 @@ runs:
       run: |
         sudo tar -xzf kubeval.tar.gz
         sudo install -m 755 kubeval /usr/local/bin/kubeval
+
+        which kubeval

@@ -1,0 +1,20 @@
+name: Setup Terraform
+description: Setup Terraform with the specified version on ubuntu
+
+inputs:
+  terraform-version:
+    description: 'Terraform version to install'
+    required: false
+    default: '1.9.8'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: ${{ inputs.terraform-version }}
+    
+    - name: Verify Terraform installation
+      shell: bash
+      run: terraform version

@@ -1,0 +1,23 @@
+name: Setup kubeval
+description: Setup kubeval on ubuntu 
+
+inputs:
+  kubeval-version:
+    description: 'Kubeval version to install'
+    required: false
+    default: '0.16.1'
+runs:
+  using: 'composite'
+  steps:
+    - name: Download kubeval
+      shell: bash
+      run: |
+        curl -Lo kubeval.tar.gz  https://github.com/instrumenta/kubeval/releases/download/v0.16.1/kubeval-linux-amd64.tar.gz
+    
+    - name: Install kubeval
+      shell: bash
+      run: |
+        sudo tar -xzf kubeval.tar.gz
+        sudo install -m 755 kubeval /usr/local/bin/kubeval
+
+        which kubeval

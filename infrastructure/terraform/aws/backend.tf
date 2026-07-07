@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "crosscloud-terraform-state"
-    key            = "aws/eks/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
-    use-lockfile   = true
+    bucket       = "crosscloud-terraform-state"
+    key          = "aws/eks/terraform.tfstate"
+    region       = "us-east-1"
+    encrypt      = true
+    use_lockfile = true
   }
 }

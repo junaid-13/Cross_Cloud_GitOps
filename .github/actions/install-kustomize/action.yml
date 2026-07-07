@@ -1,0 +1,21 @@
+name: Setup kustomize
+description: Setup kustomize on ubuntu 
+
+inputs:
+  kustomize-version:
+    description: 'Kustomize version to install'
+    required: false
+    default: '5.8.1'
+runs:
+  using: 'composite'
+  steps:
+    - name: Download kustomize
+      shell: bash
+      run: |
+        curl -sSLo /usr/local/bin/kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.8.1/kustomize_v5.8.1_linux_amd64.tar.gz
+    
+    - name: Install kustomize
+      shell: bash
+      run: |
+        sudo tar -xzf /usr/local/bin/kustomize -C /usr/local/bin/kustomize
+        sudo chmod +x /usr/local/bin/kustomize

@@ -13,12 +13,19 @@ jobs:
   terraform-fmt:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: ./.github/actions/setup-terraform
+        with:
+          terraform-version: '1.9.8'
+
       - name: Check terraform fmt (aws)
         run: |
           cd infrastructure/terraform/aws
           terraform fmt -check
-
+          
       - name: Check terraform fmt (gcp)
         run: |
           cd infrastructure/terraform/gcp

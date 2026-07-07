@@ -1,6 +1,0 @@
-resources:
-  - ../../kustomization.yaml
-patchesStrategicMerge:
-  - replica-patch.yaml
-  - resourcelimits.yaml
-  - postgres-ha-patch.yaml

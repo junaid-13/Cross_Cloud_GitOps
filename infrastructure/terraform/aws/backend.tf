@@ -4,6 +4,6 @@ terraform {
     key            = "aws/eks/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
-    dynamodb_table = "crosscloud-terraform-locks"
+    use-lockfile   = true
   }
 }
